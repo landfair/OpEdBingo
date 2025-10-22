@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Op-Ed Bingo</title>
+    <style>
+        :root {
+            --primary-color: #57068c;
+            --primary-dark: #330662;
+            --primary-gradient: linear-gradient(135deg, #57068c 0%, #330662 100%);
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --border-color: #e0e0e0;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --accent-light: #9c6fb6;
+            --accent-lighter: #e5e1ea;
+            --transition-standard: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --card-border: 1px solid rgba(230, 230, 240, 0.7);
+            --font-primary: 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: #f0ecf8;
+            min-height: 100vh;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 16px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            margin-bottom: 30px;
+        }
+
+        .nyu-logo {
+            height: 50px;
+            flex-shrink: 0;
+        }
+
+        .header-title {
+            flex-grow: 1;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .header-title h1 {
+            font-size: 2rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .header-btn {
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-standard);
+        }
+
+        .header-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(87, 6, 140, 0.3);
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition-standard);
+            box-shadow: 0 3px 10px rgba(87, 6, 140, 0.15);
+        }
+
+        .btn:hover {
+            background: var(--primary-gradient);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(87, 6, 140, 0.35);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        #viewBingoBtn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(87, 6, 140, 0.3);
+        }
+
+        #viewBingoBtn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(87, 6, 140, 0.4);
+        }
+
+        .bingo-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: var(--card-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bingo-board::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-gradient);
+        }
+
+        .bingo-cell {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition-standard);
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border: 2px solid var(--accent-lighter);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .bingo-cell:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(87, 6, 140, 0.2);
+            border-color: var(--accent-light);
+        }
+
+        .bingo-cell.marked {
+            background: var(--primary-gradient);
+            color: white;
+            border-color: var(--primary-dark);
+        }
+
+        .bingo-cell.marked::after {
+            content: '✓';
+            position: absolute;
+            font-size: 60px;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+
+        .cell-title {
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .bingo-cell.marked .cell-title {
+            color: white;
+        }
+
+        .cell-description {
+            font-size: 0.85em;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .bingo-cell.marked .cell-description {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            max-width: 600px;
+            width: 90%;
+            box-shadow: var(--shadow);
+            animation: slideIn 0.3s ease;
+            position: relative;
+            border: var(--card-border);
+        }
+
+        @keyframes slideIn {
+            from { 
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .modal-content p {
+            color: var(--text-color);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition-standard);
+            box-shadow: 0 4px 15px rgba(87, 6, 140, 0.25);
+        }
+
+        .close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(87, 6, 140, 0.35);
+        }
+
+        /* Entry Modal Styles */
+        .entry-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .entry-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .entry-modal-content {
+            background: white;
+            padding: 35px;
+            border-radius: var(--border-radius);
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+            animation: slideIn 0.3s ease;
+            border: var(--card-border);
+        }
+
+        .entry-modal-content h3 {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-size: 1.6em;
+            font-weight: 700;
+        }
+
+        .entry-modal-content .square-description {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 25px;
+            padding: 12px;
+            background: var(--secondary-color);
+            border-radius: var(--border-radius-sm);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .entry-modal-content label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .entry-modal-content textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 20px;
+            transition: var(--transition-standard);
+        }
+
+        .entry-modal-content textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(87, 6, 140, 0.1);
+        }
+
+        .entry-modal-content input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-family: inherit;
+            font-size: 14px;
+            margin-bottom: 25px;
+            transition: var(--transition-standard);
+        }
+
+        .entry-modal-content input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(87, 6, 140, 0.1);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-standard);
+        }
+
+        .save-btn {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 3px 10px rgba(87, 6, 140, 0.25);
+        }
+
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(87, 6, 140, 0.35);
+        }
+
+        .save-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .cancel-btn {
+            background: white;
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+        }
+
+        .cancel-btn:hover {
+            background: var(--secondary-color);
+            border-color: var(--primary-color);
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            box-shadow: 0 3px 10px rgba(220, 53, 69, 0.25);
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.35);
+        }
+
+        /* Bingo Victory Modal Styles */
+        .bingo-modal {
+            display: none;
+            position: fixed;
+            z-index: 1002;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .bingo-modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .bingo-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            animation: bounceIn 0.5s ease;
+            position: relative;
+            border: var(--card-border);
+        }
+
+        .bingo-modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-gradient);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        @keyframes bounceIn {
+            0% { 
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% { 
+                transform: scale(1.05);
+            }
+            70% { 
+                transform: scale(0.9);
+            }
+            100% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .bingo-modal-content h2 {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 10px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            animation: pulse 1s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .bingo-modal-content .subtitle {
+            text-align: center;
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .bingo-entries {
+            background: var(--secondary-color);
+            padding: 25px;
+            border-radius: var(--border-radius-sm);
+            color: var(--text-color);
+            margin-bottom: 25px;
+            border: var(--card-border);
+        }
+
+        .bingo-entry {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .bingo-entry:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .bingo-entry-title {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.15em;
+            margin-bottom: 10px;
+        }
+
+        .bingo-entry-passage {
+            background: white;
+            padding: 15px;
+            border-left: 4px solid var(--primary-color);
+            margin-bottom: 10px;
+            line-height: 1.7;
+            font-style: italic;
+            border-radius: var(--border-radius-sm);
+            color: var(--text-color);
+        }
+
+        .bingo-entry-source {
+            color: #666;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .bingo-close-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition-standard);
+            box-shadow: 0 4px 15px rgba(87, 6, 140, 0.3);
+        }
+
+        .bingo-close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(87, 6, 140, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 15px;
+                flex-wrap: wrap;
+            }
+
+            .nyu-logo {
+                height: 40px;
+            }
+
+            .header-title h1 {
+                font-size: 1.5rem;
+            }
+
+            .header-buttons {
+                gap: 10px;
+            }
+
+            .header-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .bingo-board {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 20px;
+            }
+
+            .bingo-cell {
+                min-height: 130px;
+                padding: 15px;
+            }
+
+            .cell-title {
+                font-size: 1em;
+            }
+
+            .cell-description {
+                font-size: 0.8em;
+            }
+
+            .modal-content, .entry-modal-content, .bingo-modal-content {
+                padding: 25px 20px;
+            }
+
+            .controls {
+                gap: 10px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <img src="https://i.imgur.com/iIODsNl.png" alt="NYU Logo" class="nyu-logo">
+        
+        <div class="header-title">
+            <h1>Op-Ed Bingo</h1>
+        </div>
+        
+        <div class="header-buttons">
+            <button class="header-btn" onclick="showInstructions()">Instructions</button>
+        </div>
+    </div>
+
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <h2>Welcome to Op-Ed Bingo!</h2>
+            <p>Below are a list of some of the key moves authors of op-eds make. When you hear the move called out, look through your folder of sample op-eds until you find an example.</p>
+            <p>When you find an example, click the square on your bingo board and paste the passage along with the source information (title/author/publication/date).</p>
+            <p><strong>Pro tip:</strong> You can click any square again to view or edit the passage you saved earlier.</p>
+            <button class="close-btn" onclick="closeModal()">Let's Play!</button>
+        </div>
+    </div>
+
+    <!-- Entry Modal -->
+    <div id="entryModal" class="entry-modal">
+        <div class="entry-modal-content">
+            <h3 id="modalTitle"></h3>
+            <div class="square-description" id="modalDescription"></div>
+            
+            <label for="passageText">Paste the example passage:</label>
+            <textarea id="passageText" placeholder="Paste the passage from the op-ed here..."></textarea>
+            
+            <label for="sourceInfo">Source (title/author/publication/date):</label>
+            <input type="text" id="sourceInfo" placeholder="e.g., 'Why We Need Change' by Jane Smith, NYT, Oct 2025">
+            
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeEntryModal()">Cancel</button>
+                <button class="delete-btn" id="deleteBtn" onclick="deleteEntry()" style="display: none;">Delete</button>
+                <button class="save-btn" id="saveBtn" onclick="saveEntry()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bingo Victory Modal -->
+    <div id="bingoModal" class="bingo-modal">
+        <div class="bingo-modal-content">
+            <h2>🎉 BINGO! 🎉</h2>
+            <div class="subtitle">Better shout "Bingo!"</div>
+            
+            <div class="bingo-entries">
+                <div id="bingoEntriesList"></div>
+            </div>
+            
+            <button class="bingo-close-btn" onclick="closeBingoModal()">Awesome!</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="controls">
+            <button class="btn" onclick="generateNewCard()">New Card</button>
+            <button class="btn" onclick="resetCard()">Reset</button>
+            <button class="btn" id="viewBingoBtn" onclick="showBingoModal()" style="display: none;">🎉 View Bingo!</button>
+        </div>
+
+        <div id="bingoBoard" class="bingo-board"></div>
+    </div>
+
+    <script>
+        const bingoSquares = [
+            {
+                title: "Call to action",
+                description: "Urges readers to take specific actions or adopt a particular viewpoint"
+            },
+            {
+                title: "Counterargument",
+                description: "Recognizes potential counterarguments or opposing viewpoints"
+            },
+            {
+                title: "Status quo",
+                description: "Describes a popular but inadequate or insufficient perspective"
+            },
+            {
+                title: "Destabilizing evidence",
+                description: "Suggests why the SQ theory is flawed or insufficient"
+            },
+            {
+                title: "Claim",
+                description: "Articulates the central claim"
+            },
+            {
+                title: "So what?",
+                description: "Explains why readers should care about this issue"
+            },
+            {
+                title: "First impression!",
+                description: "First sentence leaves you wanting to read on"
+            },
+            {
+                title: "Data Evidence",
+                description: "Offers statistics, or data used as evidence to support a claim"
+            },
+            {
+                title: "Motive",
+                description: "Explains question or problem motivating the op-ed in beginning"
+            },
+            {
+                title: "Why You?",
+                description: "Author explains why they are the best person to write this"
+            },
+            {
+                title: "Ask an Expert",
+                description: "Author cites an expert to a) complicate b) refute c) confirm"
+            },
+            {
+                title: "Anecdotal Evidence",
+                description: "Uses personal experience to help support one of their claims"
+            },
+            {
+                title: "News Hook",
+                description: "Connects op-ed to something in the news at the time"
+            },
+            {
+                title: "Scene",
+                description: "Creates a scene to illustrate the issue or argument"
+            },
+            {
+                title: "Vision of the Future",
+                description: "Suggests the likely or probable consequences if current trends continue"
+            },
+            {
+                title: "$20 Words",
+                description: "Uses jargon terms, or specialized language"
+            }
+        ];
+
+        let currentCard = [];
+        let markedCells = {}; // Changed to object to store passage data
+        let currentEditingIndex = null;
+        let bingoAchieved = false;
+
+        // LocalStorage keys
+        const STORAGE_KEYS = {
+            MARKED_CELLS: 'opedBingo_markedCells',
+            CURRENT_CARD: 'opedBingo_currentCard',
+            BINGO_ACHIEVED: 'opedBingo_bingoAchieved'
+        };
+
+        // Save game state to localStorage
+        function saveGameState() {
+            try {
+                localStorage.setItem(STORAGE_KEYS.MARKED_CELLS, JSON.stringify(markedCells));
+                localStorage.setItem(STORAGE_KEYS.CURRENT_CARD, JSON.stringify(currentCard));
+                localStorage.setItem(STORAGE_KEYS.BINGO_ACHIEVED, JSON.stringify(bingoAchieved));
+            } catch (e) {
+                console.error('Error saving game state:', e);
+            }
+        }
+
+        // Load game state from localStorage
+        function loadGameState() {
+            try {
+                const savedMarkedCells = localStorage.getItem(STORAGE_KEYS.MARKED_CELLS);
+                const savedCurrentCard = localStorage.getItem(STORAGE_KEYS.CURRENT_CARD);
+                const savedBingoAchieved = localStorage.getItem(STORAGE_KEYS.BINGO_ACHIEVED);
+
+                if (savedMarkedCells) {
+                    markedCells = JSON.parse(savedMarkedCells);
+                }
+                if (savedCurrentCard) {
+                    currentCard = JSON.parse(savedCurrentCard);
+                }
+                if (savedBingoAchieved) {
+                    bingoAchieved = JSON.parse(savedBingoAchieved);
+                }
+
+                return savedCurrentCard !== null;
+            } catch (e) {
+                console.error('Error loading game state:', e);
+                return false;
+            }
+        }
+
+        // Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function generateNewCard() {
+            // Check if there are any saved entries
+            const hasEntries = Object.keys(markedCells).length > 0;
+            
+            if (hasEntries) {
+                const confirmed = confirm('Starting a new card will clear all your saved passages and reset the game. Are you sure you want to continue?');
+                if (!confirmed) {
+                    return; // User cancelled, don't generate new card
+                }
+                // User confirmed, clear all data
+                markedCells = {};
+            }
+            
+            currentCard = shuffleArray(bingoSquares);
+            bingoAchieved = false;
+            updateViewBingoButton();
+            saveGameState();
+            renderBoard();
+        }
+
+        function renderBoard() {
+            const board = document.getElementById('bingoBoard');
+            board.innerHTML = '';
+            
+            currentCard.forEach((square, index) => {
+                const cell = document.createElement('div');
+                cell.className = 'bingo-cell';
+                
+                // Check if this square has an entry (by title)
+                if (markedCells[square.title]) {
+                    cell.classList.add('marked');
+                }
+                
+                cell.innerHTML = `
+                    <div class="cell-title">${square.title}</div>
+                    <div class="cell-description">${square.description}</div>
+                `;
+                
+                cell.onclick = () => openEntryModal(index);
+                board.appendChild(cell);
+            });
+            
+            updateViewBingoButton();
+        }
+
+        function updateViewBingoButton() {
+            const bingoBtn = document.getElementById('viewBingoBtn');
+            if (bingoAchieved) {
+                bingoBtn.style.display = 'inline-block';
+            } else {
+                bingoBtn.style.display = 'none';
+            }
+        }
+
+        function checkForBingo() {
+            // Create a boolean array for the current board state
+            const marked = currentCard.map(square => markedCells[square.title] !== undefined);
+            const winningLines = [];
+            
+            // Check rows (4x4 grid)
+            for (let row = 0; row < 4; row++) {
+                const start = row * 4;
+                const line = [start, start + 1, start + 2, start + 3];
+                if (marked[line[0]] && marked[line[1]] && marked[line[2]] && marked[line[3]]) {
+                    winningLines.push({
+                        type: 'horizontal',
+                        number: row + 1,
+                        indices: line
+                    });
+                }
+            }
+            
+            // Check columns
+            for (let col = 0; col < 4; col++) {
+                const line = [col, col + 4, col + 8, col + 12];
+                if (marked[line[0]] && marked[line[1]] && marked[line[2]] && marked[line[3]]) {
+                    winningLines.push({
+                        type: 'vertical',
+                        number: col + 1,
+                        indices: line
+                    });
+                }
+            }
+            
+            // Check diagonal (top-left to bottom-right)
+            const diag1 = [0, 5, 10, 15];
+            if (marked[diag1[0]] && marked[diag1[1]] && marked[diag1[2]] && marked[diag1[3]]) {
+                winningLines.push({
+                    type: 'diagonal',
+                    direction: 'top-left to bottom-right',
+                    indices: diag1
+                });
+            }
+            
+            // Check diagonal (top-right to bottom-left)
+            const diag2 = [3, 6, 9, 12];
+            if (marked[diag2[0]] && marked[diag2[1]] && marked[diag2[2]] && marked[diag2[3]]) {
+                winningLines.push({
+                    type: 'diagonal',
+                    direction: 'top-right to bottom-left',
+                    indices: diag2
+                });
+            }
+            
+            return winningLines;
+        }
+
+        function showBingoModal(winningLines = null) {
+            const entriesList = document.getElementById('bingoEntriesList');
+            entriesList.innerHTML = '';
+            
+            // If no winning lines provided, recalculate them
+            if (!winningLines) {
+                winningLines = checkForBingo();
+            }
+            
+            // Add header
+            const headerDiv = document.createElement('h3');
+            headerDiv.style.cssText = 'background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 20px; text-align: center; font-weight: 700; font-size: 1.5em;';
+            headerDiv.textContent = 'Your Winning Examples - Read them to your professor!';
+            entriesList.appendChild(headerDiv);
+            
+            // Add a note about multiple bingos if applicable
+            if (winningLines.length > 1) {
+                const noteDiv = document.createElement('div');
+                noteDiv.style.cssText = 'background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%); padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; color: #e65100; font-weight: 700; text-align: center; border: 2px solid #ffb74d; box-shadow: 0 3px 10px rgba(230, 81, 0, 0.15);';
+                noteDiv.textContent = `🌟 Amazing! You got ${winningLines.length} BINGOs at once! 🌟`;
+                entriesList.appendChild(noteDiv);
+            }
+            
+            // Display each winning line separately
+            winningLines.forEach((line, lineIndex) => {
+                // Create section header for this line
+                const sectionHeader = document.createElement('div');
+                sectionHeader.style.cssText = 'background: var(--primary-gradient); color: white; padding: 12px 20px; border-radius: 8px; font-weight: 700; margin-top: ' + (lineIndex > 0 ? '25px' : '0') + '; margin-bottom: 15px; text-align: center; box-shadow: 0 3px 10px rgba(87, 6, 140, 0.2);';
+                
+                let headerText = '';
+                if (line.type === 'horizontal') {
+                    headerText = `Horizontal Bingo - Row ${line.number}`;
+                } else if (line.type === 'vertical') {
+                    headerText = `Vertical Bingo - Column ${line.number}`;
+                } else if (line.type === 'diagonal') {
+                    headerText = `Diagonal Bingo (${line.direction})`;
+                }
+                sectionHeader.textContent = headerText;
+                entriesList.appendChild(sectionHeader);
+                
+                // Display the entries for this line
+                line.indices.forEach(index => {
+                    const square = currentCard[index];
+                    const data = markedCells[square.title];
+                    
+                    if (data) {
+                        const entryDiv = document.createElement('div');
+                        entryDiv.className = 'bingo-entry';
+                        entryDiv.innerHTML = `
+                            <div class="bingo-entry-title">${square.title}</div>
+                            <div class="bingo-entry-passage">${data.passage}</div>
+                            ${data.source ? `<div class="bingo-entry-source">Source: ${data.source}</div>` : ''}
+                        `;
+                        entriesList.appendChild(entryDiv);
+                    }
+                });
+            });
+            
+            document.getElementById('bingoModal').classList.add('show');
+        }
+
+        function closeBingoModal() {
+            document.getElementById('bingoModal').classList.remove('show');
+        }
+
+        function openEntryModal(index) {
+            currentEditingIndex = index;
+            const square = currentCard[index];
+            
+            document.getElementById('modalTitle').textContent = square.title;
+            document.getElementById('modalDescription').textContent = square.description;
+            
+            // If this square already has an entry, populate the fields
+            const existingEntry = markedCells[square.title];
+            if (existingEntry) {
+                document.getElementById('passageText').value = existingEntry.passage;
+                document.getElementById('sourceInfo').value = existingEntry.source;
+                document.getElementById('deleteBtn').style.display = 'block';
+            } else {
+                document.getElementById('passageText').value = '';
+                document.getElementById('sourceInfo').value = '';
+                document.getElementById('deleteBtn').style.display = 'none';
+            }
+            
+            document.getElementById('entryModal').classList.add('show');
+            document.getElementById('passageText').focus();
+        }
+
+        function closeEntryModal() {
+            document.getElementById('entryModal').classList.remove('show');
+            currentEditingIndex = null;
+        }
+
+        function saveEntry() {
+            const passage = document.getElementById('passageText').value.trim();
+            const source = document.getElementById('sourceInfo').value.trim();
+            
+            if (!passage) {
+                alert('Please paste a passage before saving.');
+                return;
+            }
+            
+            const square = currentCard[currentEditingIndex];
+            markedCells[square.title] = {
+                passage: passage,
+                source: source
+            };
+            
+            saveGameState();
+            closeEntryModal();
+            renderBoard();
+            
+            // Check for bingo after saving
+            if (!bingoAchieved) {
+                const winningLines = checkForBingo();
+                if (winningLines.length > 0) {
+                    bingoAchieved = true;
+                    saveGameState();
+                    updateViewBingoButton();
+                    // Delay slightly so the board updates first
+                    setTimeout(() => {
+                        showBingoModal(winningLines);
+                    }, 500);
+                }
+            }
+        }
+
+        function deleteEntry() {
+            if (confirm('Are you sure you want to delete this entry?')) {
+                const square = currentCard[currentEditingIndex];
+                delete markedCells[square.title];
+                bingoAchieved = false; // Reset bingo status if they delete
+                saveGameState();
+                closeEntryModal();
+                renderBoard();
+            }
+        }
+
+        function resetCard() {
+            if (confirm('This will clear all your saved passages. Are you sure?')) {
+                markedCells = {};
+                bingoAchieved = false;
+                saveGameState();
+                renderBoard();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('welcomeModal').classList.remove('show');
+        }
+
+        function showInstructions() {
+            document.getElementById('welcomeModal').classList.add('show');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const entryModal = document.getElementById('entryModal');
+            if (event.target === entryModal) {
+                closeEntryModal();
+            }
+        }
+
+        // Initialize the board on page load
+        function initializeGame() {
+            const hasLoadedState = loadGameState();
+            
+            if (!hasLoadedState || currentCard.length === 0) {
+                // No saved state or invalid state, generate new card and show welcome
+                generateNewCard();
+                document.getElementById('welcomeModal').classList.add('show');
+            } else {
+                // Render the loaded state, don't show welcome modal
+                renderBoard();
+            }
+        }
+
+        initializeGame();
+    </script>
+</body>
+</html>
