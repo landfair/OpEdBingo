@@ -1034,6 +1034,113 @@
             text-decoration: underline;
         }
 
+        /* Text Highlighting */
+        .reader-text ::selection {
+            background-color: #ffd54f;
+            color: #333;
+        }
+
+        .reader-text ::-moz-selection {
+            background-color: #ffd54f;
+            color: #333;
+        }
+
+        .highlighted-text {
+            background-color: #ffd54f;
+            cursor: pointer;
+            position: relative;
+            padding: 2px 0;
+            transition: var(--transition-standard);
+        }
+
+        .highlighted-text:hover {
+            background-color: #ffc107;
+        }
+
+        /* Move Selection Dropdown */
+        .move-dropdown {
+            position: fixed;
+            background: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            min-width: 280px;
+            max-width: 320px;
+            display: none;
+            animation: slideIn 0.2s ease;
+        }
+
+        .move-dropdown.show {
+            display: block;
+        }
+
+        .move-dropdown-header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 6px 6px 0 0;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .move-dropdown-close {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-standard);
+        }
+
+        .move-dropdown-close:hover {
+            transform: scale(1.1);
+        }
+
+        .move-dropdown-content {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+
+        .move-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: var(--transition-standard);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .move-option:last-child {
+            border-bottom: none;
+        }
+
+        .move-option:hover {
+            background-color: var(--accent-lighter);
+        }
+
+        .move-option-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .move-option-description {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
         @media (max-width: 768px) {
             .header {
                 padding: 12px 15px;
@@ -1236,25 +1343,30 @@
                 <h2>How the Game Works</h2>
                 <p><strong>Step 1:</strong> Your professor will call out a specific rhetorical move from your bingo card.</p>
                 <p><strong>Step 2:</strong> You'll have a limited amount of time to locate a passage in one of the provided op-eds that makes that move.</p>
-                <p><strong>Step 3:</strong> Once you find an example, click the corresponding square on your bingo card.</p>
+                <p><strong>Step 3:</strong> Once you find an example, highlight it and tag it with the corresponding move!</p>
             </div>
 
             <!-- Step 4 -->
             <div class="tutorial-step" data-step="4">
-                <h2>Recording Your Findings</h2>
-                <p>When you click a square, a text box will appear where you can:</p>
+                <h2>Highlighting & Tagging Passages</h2>
+                <p>Switch to the <strong>"Sample Op-Eds"</strong> tab and open any article. When you find a passage that demonstrates a rhetorical move:</p>
                 <ul style="text-align: left; margin: 20px 40px; line-height: 1.8;">
-                    <li><strong>Paste the passage</strong> that demonstrates the move (usually no more than 2 sentences)</li>
-                    <li><strong>Add source information</strong> (title, author, publication, date)</li>
+                    <li><strong>Highlight the text</strong> by selecting it with your mouse</li>
+                    <li><strong>Click the highlighted text</strong> to see a menu of all rhetorical moves</li>
+                    <li><strong>Select the move</strong> that matches your passage</li>
                 </ul>
-                <p>💡 <strong>Tip:</strong> Keep your passages brief but meaningful!</p>
+                <p>💡 <strong>Tip:</strong> Keep your selections brief but meaningful (usually 1-2 sentences)!</p>
             </div>
 
             <!-- Step 5 -->
             <div class="tutorial-step" data-step="5">
-                <h2>Finding Examples</h2>
-                <p>Switch to the <strong>"Sample Op-Eds"</strong> tab using the toggle in the header to read the provided articles.</p>
-                <p>As you read, look for passages that match the rhetorical moves on your card. You can click any square again later to view or edit what you've saved.</p>
+                <h2>Review & Save Your Entry</h2>
+                <p>After selecting a move, you'll automatically see a dialog box with:</p>
+                <ul style="text-align: left; margin: 20px 40px; line-height: 1.8;">
+                    <li><strong>Your highlighted passage</strong> - already filled in for you</li>
+                    <li><strong>Source information</strong> - bibliographical data automatically added</li>
+                </ul>
+                <p>Review the entry and click <strong>"Save"</strong> to mark the square on your bingo card. You can always click a square later to view or edit what you've saved!</p>
             </div>
 
             <!-- Step 6 -->
@@ -1333,14 +1445,25 @@
                 </div>
                 <button class="reader-close" onclick="closeReaderModal()">×</button>
             </div>
-            
+
             <div class="reader-body">
                 <div class="reader-text" id="readerText"></div>
             </div>
-            
+
             <div class="reader-link-section">
                 <a id="readerLink" href="#" target="_blank" class="reader-link">View Original Article →</a>
             </div>
+        </div>
+    </div>
+
+    <!-- Move Selection Dropdown -->
+    <div id="moveDropdown" class="move-dropdown">
+        <div class="move-dropdown-header">
+            <span>Select a Rhetorical Move</span>
+            <button class="move-dropdown-close" onclick="closeMoveDropdown()">×</button>
+        </div>
+        <div class="move-dropdown-content" id="moveDropdownContent">
+            <!-- Options will be populated dynamically -->
         </div>
     </div>
 
@@ -1361,7 +1484,7 @@
             <div class="opeds-container">
                 <h2>Sample Op-Eds</h2>
                 <div class="opeds-intro">
-                    Click on any op-ed below to read it in full. Look for examples of the rhetorical moves described on your bingo card. When you find an example, copy the passage, return to the Bingo Game tab, and click the corresponding square to record it.
+                    Click on any op-ed below to read it in full. Look for examples of the rhetorical moves described on your bingo card. When you find an example, <strong>highlight the text with your mouse</strong>, then <strong>click the highlighted passage</strong> to tag it with the corresponding move. The passage and source information will be automatically added to your bingo card!
                 </div>
                 
                 <!-- Sorting Controls -->
@@ -2808,11 +2931,19 @@ glassman: {
             renderOpEds(sortedIds);
         }
 
+        // Global variables for text highlighting
+        let currentOpedId = null;
+        let currentHighlight = null;
+        let selectedText = '';
+        let selectedRange = null;
+
         // Open reader modal with specific op-ed
         function openOpEd(opedId) {
             const oped = opedArticles[opedId];
             if (!oped) return;
-            
+
+            currentOpedId = opedId;
+
             document.getElementById('readerTitle').textContent = oped.title;
             document.getElementById('readerMeta').innerHTML = `
                 <strong>By ${oped.author}</strong><br>
@@ -2820,24 +2951,203 @@ glassman: {
             `;
             document.getElementById('readerText').innerHTML = oped.text;
             document.getElementById('readerLink').href = oped.url;
-            
+
             document.getElementById('readerModal').classList.add('show');
+
+            // Add text selection listener after a short delay to allow DOM to update
+            setTimeout(() => {
+                enableTextSelection();
+            }, 100);
         }
 
         function closeReaderModal() {
             document.getElementById('readerModal').classList.remove('show');
+            closeMoveDropdown();
+            currentOpedId = null;
+        }
+
+        // Enable text selection and highlighting in reader
+        function enableTextSelection() {
+            const readerText = document.getElementById('readerText');
+
+            readerText.addEventListener('mouseup', handleTextSelection);
+            readerText.addEventListener('touchend', handleTextSelection);
+        }
+
+        function handleTextSelection(event) {
+            const selection = window.getSelection();
+            const text = selection.toString().trim();
+
+            if (text.length > 0) {
+                selectedText = text;
+
+                try {
+                    selectedRange = selection.getRangeAt(0);
+
+                    // Create highlighted span
+                    const span = document.createElement('span');
+                    span.className = 'highlighted-text';
+
+                    // Use surroundContents if possible (works for simple selections)
+                    try {
+                        selectedRange.surroundContents(span);
+                    } catch (e) {
+                        // Fallback for complex selections spanning multiple elements
+                        const fragment = selectedRange.extractContents();
+                        span.appendChild(fragment);
+                        selectedRange.insertNode(span);
+                    }
+
+                    // Store reference to the highlight
+                    currentHighlight = span;
+
+                    // Add click listener to highlighted text
+                    span.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        showMoveDropdown(e, span);
+                    });
+
+                    // Clear the selection
+                    selection.removeAllRanges();
+
+                    console.log('Text highlighted successfully:', text.substring(0, 50) + '...');
+                } catch (error) {
+                    console.error('Error highlighting text:', error);
+                }
+            }
+        }
+
+        // Show dropdown menu for move selection
+        function showMoveDropdown(event, highlightElement) {
+            console.log('showMoveDropdown called');
+            const dropdown = document.getElementById('moveDropdown');
+            const dropdownContent = document.getElementById('moveDropdownContent');
+
+            console.log('Dropdown element:', dropdown);
+            console.log('Current card:', currentCard);
+
+            // Store the highlight element
+            currentHighlight = highlightElement;
+            selectedText = highlightElement.textContent;
+
+            // Clear existing options
+            dropdownContent.innerHTML = '';
+
+            // Populate with all bingo squares
+            currentCard.forEach((square, index) => {
+                if (square && square.title) {
+                    const option = document.createElement('div');
+                    option.className = 'move-option';
+                    option.innerHTML = `
+                        <div class="move-option-title">${square.title}</div>
+                        <div class="move-option-description">${square.description}</div>
+                    `;
+                    option.onclick = () => selectMove(square.title);
+                    dropdownContent.appendChild(option);
+                } else {
+                    console.warn('Square at index', index, 'is invalid:', square);
+                }
+            });
+
+            console.log('Added', currentCard.length, 'options to dropdown');
+
+            // Position dropdown near the clicked element (using fixed positioning)
+            const rect = highlightElement.getBoundingClientRect();
+
+            dropdown.style.left = rect.left + 'px';
+            dropdown.style.top = (rect.bottom + 10) + 'px';
+
+            console.log('Positioning dropdown at:', dropdown.style.left, dropdown.style.top);
+
+            // Show dropdown
+            dropdown.classList.add('show');
+            console.log('Dropdown should be visible now');
+
+            // Check if dropdown goes off right edge or bottom of screen
+            setTimeout(() => {
+                const dropdownRect = dropdown.getBoundingClientRect();
+                if (dropdownRect.right > window.innerWidth) {
+                    dropdown.style.left = (window.innerWidth - dropdownRect.width - 20) + 'px';
+                }
+                // Check if dropdown goes off bottom of screen
+                if (dropdownRect.bottom > window.innerHeight) {
+                    dropdown.style.top = (rect.top - dropdownRect.height - 10) + 'px';
+                }
+            }, 10);
+        }
+
+        function closeMoveDropdown() {
+            const dropdown = document.getElementById('moveDropdown');
+            dropdown.classList.remove('show');
+        }
+
+        // Select a move and populate bingo card
+        function selectMove(moveTitle) {
+            if (!currentOpedId || !selectedText) {
+                closeMoveDropdown();
+                return;
+            }
+
+            const oped = opedArticles[currentOpedId];
+            const sourceInfo = `${oped.title}, ${oped.author}, ${oped.publication}, ${oped.date}`;
+
+            // Find the index of this square in the current card
+            const squareIndex = currentCard.findIndex(square => square.title === moveTitle);
+
+            if (squareIndex === -1) {
+                console.error('Square not found in current card:', moveTitle);
+                closeMoveDropdown();
+                return;
+            }
+
+            // Close dropdown and reader modal
+            closeMoveDropdown();
+            closeReaderModal();
+
+            // Switch to bingo tab
+            switchTab('bingo');
+
+            // Pre-populate the entry modal fields with the selected text and source
+            setTimeout(() => {
+                currentEditingIndex = squareIndex;
+                const square = currentCard[squareIndex];
+
+                document.getElementById('modalTitle').textContent = square.title;
+                document.getElementById('modalDescription').textContent = square.description;
+                document.getElementById('passageText').value = selectedText;
+                document.getElementById('sourceInfo').value = sourceInfo;
+
+                // Check if there's already an entry for delete button visibility
+                const existingEntry = markedCells[square.title];
+                if (existingEntry) {
+                    document.getElementById('deleteBtn').style.display = 'block';
+                } else {
+                    document.getElementById('deleteBtn').style.display = 'none';
+                }
+
+                // Open the entry modal
+                document.getElementById('entryModal').classList.add('show');
+                document.getElementById('passageText').focus();
+
+                console.log(`Pre-populated entry modal for "${moveTitle}"`);
+            }, 100);
         }
 
         // Close modals when clicking outside
         window.onclick = function(event) {
             const entryModal = document.getElementById('entryModal');
             const readerModal = document.getElementById('readerModal');
-            
+            const moveDropdown = document.getElementById('moveDropdown');
+
             if (event.target === entryModal) {
                 closeEntryModal();
             }
             if (event.target === readerModal) {
                 closeReaderModal();
+            }
+            // Close dropdown if clicking outside of it
+            if (!moveDropdown.contains(event.target) && !event.target.classList.contains('highlighted-text')) {
+                closeMoveDropdown();
             }
         }
 
