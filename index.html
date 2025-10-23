@@ -817,6 +817,56 @@
             border-bottom: 2px solid var(--border-color);
         }
 
+        /* Sort Controls Styles */
+        .sort-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: var(--border-radius-sm);
+            border: 2px solid var(--accent-lighter);
+            flex-wrap: wrap;
+        }
+
+        .sort-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .sort-btn {
+            background: white;
+            color: var(--text-color);
+            border: 2px solid var(--border-color);
+            padding: 8px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition-standard);
+        }
+
+        .sort-btn:hover {
+            border-color: var(--primary-color);
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .sort-btn.active {
+            background: var(--primary-gradient);
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 3px 10px rgba(87, 6, 140, 0.25);
+        }
+
+        .sort-btn.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(87, 6, 140, 0.35);
+        }
+
         .opeds-list {
             display: flex;
             flex-direction: column;
@@ -1060,6 +1110,22 @@
                 font-size: 1.8em;
             }
 
+            .sort-controls {
+                padding: 12px 15px;
+                gap: 8px;
+            }
+
+            .sort-label {
+                font-size: 0.9rem;
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            .sort-btn {
+                padding: 6px 14px;
+                font-size: 0.85rem;
+            }
+
             .oped-item {
                 padding: 20px;
             }
@@ -1298,96 +1364,17 @@
                     Click on any op-ed below to read it in full. Look for examples of the rhetorical moves described on your bingo card. When you find an example, copy the passage, return to the Bingo Game tab, and click the corresponding square to record it.
                 </div>
                 
-                <div class="opeds-list">
-                    <div class="oped-item" onclick="openOpEd('hernandez')">
-                        <div class="oped-item-title">How I Learned to Take the SAT Like a Rich Kid</div>
-                        <div class="oped-item-meta">
-                            <strong>Author:</strong> Dylan Hernandez<br>
-                            <strong>Publication:</strong> The New York Times<br>
-                            <strong>Date:</strong> April 10, 2017
-                        </div>
-                    </div>
-
-                    <div class="oped-item" onclick="openOpEd('camp')">
-                        <div class="oped-item-title">I Came to College Eager to Debate. I Found Self-Censorship Instead.</div>
-                        <div class="oped-item-meta">
-                            <strong>Author:</strong> Emma Camp<br>
-                            <strong>Publication:</strong> The New York Times<br>
-                            <strong>Date:</strong> March 7, 2022
-                        </div>
-                    </div>
-
-                    <div class="oped-item" onclick="openOpEd('scruby')">
-                        <div class="oped-item-title">Don't Segregate Gay Students</div>
-                        <div class="oped-item-meta">
-                            <strong>Author:</strong> Leland Scruby<br>
-                            <strong>Publication:</strong> The New York Times<br>
-                            <strong>Date:</strong> August 2, 2003
-                        </div>
-                    </div>
-
-                    <div class="oped-item" onclick="openOpEd('mitchell')">
-                        <div class="oped-item-title">Why I Chose a Historically Black College</div>
-                        <div class="oped-item-meta">
-                            <strong>Author:</strong> Skylar Mitchell<br>
-                            <strong>Publication:</strong> The New York Times<br>
-                            <strong>Date:</strong> April 1, 2017
-                        </div>
-                    </div>
-
-                    <div class="oped-item" onclick="openOpEd('jack')">
-                        <div class="oped-item-title">It's Hard to Be Hungry on Spring Break</div>
-                        <div class="oped-item-meta">
-                            <strong>Author:</strong> Anthony Abraham Jack<br>
-                            <strong>Publication:</strong> The New York Times<br>
-                            <strong>Date:</strong> March 17, 2018
-                        </div>
-                    </div>
-
-                    <div class="oped-item" onclick="openOpEd('hack')">
-                        <div class="oped-item-title">College Life vs. My Moral Code</div>
-                        <div class="oped-item-meta">
-                            <strong>Author:</strong> Elisha Dov Hack<br>
-                            <strong>Publication:</strong> The New York Times<br>
-                            <strong>Date:</strong> September 9, 1997
-                        </div>
-                    </div>
-
-                    <div class="oped-item" onclick="openOpEd('downes')">
-                        <div class="oped-item-title">Trigger Warnings, Safe Spaces and Free Speech, Too</div>
-                        <div class="oped-item-meta">
-                            <strong>Author:</strong> Sophie Downes<br>
-                            <strong>Publication:</strong> The New York Times<br>
-                            <strong>Date:</strong> September 10, 2016
-                        </div>
-                    </div>
-
-                    <div class="oped-item" onclick="openOpEd('mintz')">
-                        <div class="oped-item-title">Why I'm Learning More With Distance Learning Than I Do in School</div>
-                        <div class="oped-item-meta">
-                            <strong>Author:</strong> Veronique Mintz<br>
-                            <strong>Publication:</strong> The New York Times<br>
-                            <strong>Date:</strong> May 5, 2020
-                        </div>
-                    </div>
-
-                    <div class="oped-item" onclick="openOpEd('meisels')">
-                        <div class="oped-item-title">I Shouldn't Have to Choose Between My Judaism and My Queerness</div>
-                        <div class="oped-item-meta">
-                            <strong>Author:</strong> Molly Meisels<br>
-                            <strong>Publication:</strong> The New York Times<br>
-                            <strong>Date:</strong> June 10, 2021
-                        </div>
-                    </div>
-
-                    <div class="oped-item" onclick="openOpEd('marquez')">
-                        <div class="oped-item-title">I Accidentally Turned My Dad In to Immigration Services</div>
-                        <div class="oped-item-meta">
-                            <strong>Author:</strong> Viviana Andazola Marquez<br>
-                            <strong>Publication:</strong> The New York Times<br>
-                            <strong>Date:</strong> October 24, 2017
-                        </div>
-                    </div>
+                <!-- Sorting Controls -->
+                <div class="sort-controls">
+                    <span class="sort-label">Sort by:</span>
+                    <button class="sort-btn active" onclick="sortOpEds('default')">Default</button>
+                    <button class="sort-btn" onclick="sortOpEds('title')">Title</button>
+                    <button class="sort-btn" onclick="sortOpEds('author')">Author</button>
+                    <button class="sort-btn" onclick="sortOpEds('date')">Date</button>
+                </div>
+                
+                <div class="opeds-list" id="opedsList">
+                    <!-- Op-eds will be dynamically rendered here -->
                 </div>
             </div>
         </div>
@@ -2244,8 +2231,242 @@
 <p>So many families like mine are threatened by a deeply flawed immigration system in the United States, which is basically enforced in an ad hoc manner. If upholding the law is important, pulling families apart is no way to do it.</p>
 
 <p><em>Viviana Andazola Marquez is a senior at Yale.</em></p>`
+            },
+            okafor: {
+                title: "Why I Bring My Gun to School",
+                author: "Antonia Okafor",
+                publication: "The New York Times",
+                date: "July 24, 2017",
+                section: "Opinion | On Campus",
+                url: "https://nyti.ms/2tDEj0p",
+                text: `<p>It was my first year as a public policy graduate student at the University of Texas, Dallas, and I was taking all my classes at night so I could work during the day. Every evening, after class got out around 10, I had to walk through the sprawling parking lots to get to my car. I dreaded that time of day. I would pray that no one was lurking in dimly lit areas or behind cars, and I'd try not to think about the campus police alerts I'd seen about sexual assaults in the area.</p>
+
+<p>I had survived such an assault myself when I was a child. The incident left me acutely aware of the realities of being preyed upon just because you are physically smaller and less likely to protect yourself. I know what it means to feel defenseless.</p>
+
+<p>Now my only means of protection was a rape whistle. I would hold it in one hand and my phone in the other, the numbers 9-1-1 pre-dialed and my finger on the call button. As I neared my car, I would start to jog. It scared me to think that even if I dialed the number and blew the whistle, by the time anyone got to the scene it might be too late. When I got to my car, I'd get in, lock the doors and look behind me to make sure no one was in the back seat.</p>
+
+<p>This was in 2015, around the time the Texas Legislature began debating, and ultimately passing, a so-called campus carry bill. I grew up in a Democratic, immigrant household in a suburb outside of Dallas, where guns and gun policy were never discussed, so I hadn't paid much attention when similar bills failed in 2011 and 2013. But that year something changed. I was 25 years old, commuting alone, and as a minority woman, I felt particularly vulnerable.</p>
+
+<p>I started fighting for students' rights to carry concealed weapons for selfish reasons: I wanted to be able to protect myself. But I quickly found a network of women who felt the same way I did, and we began to advocate for our safety together. I eventually became the Southwest director of Students for Concealed Carry, and am now the founder of the self-defense nonprofit Empowered, which will open its first chapter this fall, at the University of North Texas. (I have also appeared in ads for the National Rifle Association, but I am not employed by the organization.)</p>
+
+<p>When I started advocating for concealed carry on campus, I was not a "gun enthusiast" or a member of any Second Amendment organizations. I had only recently been taught to shoot by a concerned local firearms instructor who had heard about a scare I had with a cyberstalker.</p>
+
+<p>But from the minute I put my hands around a Ruger LC9 pistol, the gun I regularly carry with me now, I felt more in control. I felt empowered to be holding a tool that could protect me physically, and I was determined to learn how to use it responsibly. It was a relief to know that I could shoot if I had to, even though I would never use my gun unless it was a last means of self-defense. I got my concealed carry license a year ago.</p>
+
+<p>In addition to Texas, Arkansas, Colorado, Georgia, Idaho, Kansas, Mississippi, Oregon, Utah and Wisconsin all now allow students with concealed carry permits to carry guns inside the buildings of college campuses. I have learned that there are a lot of misconceptions about these bills. In Texas, only concealed handgun license holders who are 21 years old or older can carry firearms on campus. The rule applies only to public schools, and those schools can also set aside gun-free zones in whatever locations they choose.</p>
+
+<p>Still, I regularly encounter liberals who fear irresponsible gun use and think that college kids (even if they are 21) can't be trusted with firearms. I understand that fear is a powerful motivator on both sides of this issue. But I fiercely resent being told that I can't protect myself according to my rights as an American.</p>
+
+<p>The Justice Department estimates that one in five women are assaulted during college. This number does not surprise me, although plenty of my fellow conservatives take issue with it. I have met so many women through my gun advocacy who felt helpless in the face of sexual assault before they carried a weapon — they felt that no one would listen to them, that they didn't have any options. It is a huge failing of the conservative movement not to take this seriously. Even if the one out of five statistic is imprecise, isn't one assaulted woman bad enough?</p>
+
+<p>Female gun ownership isn't a matter of political affiliation. I've met women across the political spectrum who own guns for self-defense or for shooting recreationally. In particular, black women have become a lot more interested in gun ownership and shooting classes.</p>
+
+<p>The rights and values of gun-owning women aren't being addressed by either political party. While conservatives aren't paying enough attention to sexual assault, liberals are actively hurting women's access to self-defense. Many liberals — including many female professors my organization approached as potential sponsors for Empowered — don't support a woman's "right to choose" when it comes to her own self-defense. They can't get behind a vision of female empowerment that doesn't match their own.</p>
+
+<p>Contrary to popular belief, there is a place for young, pro-Second Amendment women in modern feminism. And there is a place for them on college campuses.</p>
+
+<p><em>Antonia Okafor is a graduate student at the University of Texas, Dallas.</em></p>`
+            },
+            larkins: {
+                title: "Florida's 'Don't Say Gay' Bill Will Hurt Teens Like Me",
+                author: "Will Larkins",
+                publication: "The New York Times",
+                date: "March 12, 2022",
+                section: "Guest Essay",
+                url: "https://www.nytimes.com/2022/03/12/opinion/florida-dont-say-gay-bill.html",
+                text: `<p>Last October, I attended a high school Halloween party. A group of guys from my school surrounded me and shouted homophobic slurs. One even threatened me with physical violence. When I broke down crying in class the next day, my teacher comforted me. She told me that she had gone through something similar when she was my age.</p>
+
+<p>On Tuesday, the Florida Senate approved the Parental Rights in Education bill, also known as the Don't Say Gay bill. The bill, which Gov. Ron DeSantis has said he will sign, seeks to ban public schools in the state from teaching about sexual orientation or gender identity from kindergarten through the third grade, or through the 12th grade in a manner deemed "age-inappropriate" by parents. Had the proposed law been in effect last year, my teacher could have put herself in jeopardy by being there for me.</p>
+
+<p>From an early age I knew I was different. I wasn't interested in the things other boys my age did, and I didn't really feel comfortable in the clothes my parents bought me. The struggle for acceptance was not just internal, it also felt as if my classmates didn't know what to make of me. By fourth grade I was convinced that I was broken. I didn't know how to defend myself when other kids made hateful comments or bullied me — I didn't know why I was the way that I was. Without the vocabulary to articulate why I felt and acted like this, I assumed what they said about me was true. For most of the kids in my grade, I was the only kid like me they knew.</p>
+
+<p>My life changed the summer before seventh grade. A girl at an arts summer camp turned to me on the first day and asked, "Are you L.G.B.T.Q.?" She explained what each letter meant and showed me pictures of RuPaul on her phone. It felt as if a weight had been taken off my shoulders. The realization that I wasn't the only one saved my life. I remember stepping away and calling my best friend at the time: "Max, I think I am gay."</p>
+
+<p>When I came home from camp, I became fascinated with learning more about queer culture. I read about Georgia Black, a Black trans woman who lived close to where I do now in the early 1900s, and I learned that in pre-Colonial times, more than 150 Indigenous tribes acknowledged third genders in their community and three to five gender roles: female, male, Two Spirit female, Two Spirit male and transgender. I realized how common the experience of falling outside of the gender binary was. As I learned about the history and culture of my community, I grew to understand and love myself. Education made me hate myself less.</p>
+
+<p>I have come to realize that those who have been so openly hateful toward me often knew little about the queer community — they thought being L.G.B.T.Q. was a conscious choice. Education didn't just give me a sense of self worth but also the knowledge of a community and lifeline there for countless young people.</p>
+
+<p>L.G.B.T.Q. teenagers are four times as likely to attempt suicide as their straight counterparts. According to the Trevor Project, a crisis intervention and suicide prevention organization for young gay, lesbian, bisexual, transgender and queer people, teenagers who learned about L.G.B.T.Q. issues or people in school were 23 percent less likely to attempt suicide. We have a mental health crisis in the queer community, and Governor DeSantis and the Republican Party want to outlaw the solution.</p>
+
+<p>I am lucky to have supportive parents, but I am in the minority among my peers. Research has shown that L.G.B.T.Q. teenagers have a higher risk of experiencing some form of homelessness, with family conflict being the primary cause. Many of my close friends have been thrown out of their homes after coming out to their parents or being outed by others. One of my best friends even stayed with my family for three weeks after he was kicked out of his home because his parents refused to accept that he was trans. Other friends have told me disturbing stories of being physically abused or worse because they strayed from traditional gender norms.</p>
+
+<p>On Feb. 28, I spoke out against the bill on the Florida Senate floor, and on Monday my friend Maddi Zornek and I led a walkout of more than 500 students at our high school. Republican lawmakers have been echoing the idea that parents know what is best for their kids, not the schools. In some cases that may be true. But parents aren't trained professionals; unlike schools, they aren't made to follow a set of standards. For many of my friends in dangerous situations because of their sexuality or gender identity, school has been a space where they could be themselves.</p>
+
+<p>Now, under threat of lawsuits, districts, schools and teachers may be hesitant to talk at all with students about gender identity and sexuality, even if the conversation is "age-appropriate." The bill also allows the state commissioner of education to establish a "special magistrate" so that prosecuting those in violation of the law would happen much faster than in a normal court.</p>
+
+<p>When I look back to elementary school, I wonder how different my childhood would have been had my classmates and I known that I wasn't some tragic anomaly, a strange fluke that needed to be fixed. People in support of the bill always ask, "Why do these subjects need to be taught in schools?" To them I would say that if we understand ourselves, and those around us understand us, so many lives will be saved.</p>
+
+<p><em>Will Larkins (@ProudTwinkie) is a junior at Winter Park High School, the president and a co-founder of the school's Queer Student Union and one of the organizers of its Say Gay Anyway walkout.</em></p>`
+            },
+            egan: {
+                title: "Junior Fear Abroad",
+                author: "Sophie Egan",
+                publication: "The New York Times",
+                date: "December 5, 2007",
+                section: "Op-Ed Contributor",
+                url: "https://www.nytimes.com/2007/12/05/opinion/05egan.html",
+                text: `<p><strong>Bologna, Italy</strong> — This city is a porticoed, often eerie and shadowy medieval place, the setting of many Italian mystery novels and even a John Grisham thriller. As a college student spending part of my junior year abroad, I haven't always felt completely safe here. But then came news of the sexual assault and killing of a British student, Meredith Kercher, in Perugia. The police are holding her American roommate, Amanda Knox, and Ms. Knox's Italian boyfriend as suspects. Now, this place seems to be a little wary of me.</p>
+
+<p>Every day brings a new headline or television report about Amanda Knox. "Man-hunter, insatiable in bed," was the first line in an article in Corriere della Sera, Italy's leading daily newspaper. "She lives only for pleasure," La Repubblica reported.</p>
+
+<p>Not only is Perugia, like Bologna, a university city that is considered one of the premier places for language and culture study abroad, but Amanda is a girl my exact age, 20, from my hometown, Seattle. Because of her story, which has dominated the news in Europe, and not just in the tabloids, life as an American student abroad is not at all what I expected.</p>
+
+<p>I came here imagining I'd have to answer the numerous questions about the war, our unpopular president and our cultural exports that still dominate Italian television. Italians love to argue. And while I have had many late-night discussions about America's failings, it's been nothing like the storm of more personal attention that has come with Ms. Knox's arrest.</p>
+
+<p>A few days after the Nov. 1 murder, Corriere della Sera ran a story about Seattle that described it as known for rain, dark forests and a high number of serial killers. The paper even went so far as to suggest that Kurt Cobain, the singer for Nirvana who committed suicide in Seattle, may have been the inspiration for Amanda's "refined grunge" style and interest in drugs.</p>
+
+<p>I love my hometown. My tiny room here, which I am told was once part of the former servants' quarters of a wealthy Emilia-Romagna merchant family, is plastered in pictures of Mount Rainier, Puget Sound and the Space Needle. I've always been excited to tell people where I am from. At the beginning of the semester I would usually say, "Yeah, I'm from Seattle. You know ... Starbucks? Nirvana? Boeing? Bill Gates?"</p>
+
+<p>These don't get much reaction.</p>
+
+<p>"'Grey's Anatomy?'"</p>
+
+<p>"Ahh, si si si! See-att-tole! Of course, 'Grey's Anatomy'!" (Let me just say that Dr. McDreamy is even dreamier dubbed in a deep Italian baritone.)</p>
+
+<p>Since this murder, to be a college student from Seattle has become shorthand for something else. Ms. Knox has been called "una bugiarda" (liar), "L'Americana," or my personal favorite, "La Luciferina." Even worse, her image-destroying online postings, in which she appears to be inebriated, have become part of this media circus. Italians have gotten all too well acquainted with "la studentessa di Seattle" (thanks again for the great press). Laughing about her constantly changing alibi, they now often refer to her just as "Amanda."</p>
+
+<p>And of course there was that unfortunate online name she gave herself: "Foxyknoxy."</p>
+
+<p>So these days I am not exactly shouting the name of my hometown to bystanders in the piazza. "You're from Seattle?" people will say. "Isn't that where that wild American student is from?" Anticipating the next question, I quickly add, "And no, I don't know her."</p>
+
+<p>American college students already have to live down a stereotype of their own making. Hordes of them drunkenly parade or literally pub crawl past Renaissance masterpieces on the streets of Florence at 4 a.m., shouting clichés like "Ciao, bella!" and "La vita è bella!" Add in our often laughable pronunciation of Dante's beautiful language and our sinfully casual dress — the North Face fleece college uniform sharing the streets with Dolce & Gabbana-strutting Italian babes — and you can see why it's an uphill struggle.</p>
+
+<p>It's bad enough that the dollar is at a record low and that President Bush is about as popular here as Chinese food. Not to mention, I'm always trying to explain that "The O.C." isn't real life and that's not how most people in the United States live.</p>
+
+<p>Now throw in the blue-eyed studentessa, a poster girl for college debauchery. To read the articles about Amanda Knox, you would think that all American students are hash-smoking party girls with little memory of their weekends.</p>
+
+<p>This makes the foreign immersion process so much more difficult. We college students come here to learn Italian, study new things, live on our own outside the American cocoon, experience the culture and form relationships with the people and the country. And Bologna should be the perfect place for this. Umberto Eco is a professor here, at what claims to be the world's oldest university, and Prime Minister Romano Prodi lives down the street in a rather typical ochre-colored Bolognese house. Plus, a pizza margherita, at under three euros, is one of the most affordable eating pleasures in the world.</p>
+
+<p>So, I haven't given up. This country has far too much to offer for me to let an incident like this tarnish my experience. Sure, answering the question "Where are you from?" is a bit more awkward, but it certainly gets the conversations going. And after all, that is what I came here to do.</p>
+
+<p><em>Sophie Egan is a junior at Stanford.</em></p>`
+            },
+            chou: {
+                title: "Why We're Impeaching Our Student Body President Over Trump Jr.",
+                author: "Zachariah Chou",
+                publication: "The New York Times",
+                date: "November 21, 2019",
+                section: "Opinion",
+                url: "https://www.nytimes.com/2019/11/21/opinion/trump-jr-student-body-president.html",
+                text: `<p><strong>GAINESVILLE, Fla.</strong> — On Oct. 10, Donald Trump Jr. and the former Fox News host Kimberly Guilfoyle gave a speech at the University of Florida for $50,000 at the invitation of our student body president, Michael Murphy. Students protested, and normally that would have been the end of the story.</p>
+
+<p>Instead, last week, a group of other student body senators and I initiated impeachment proceedings against Mr. Murphy over what we feel is a gross abuse of his power. In the resulting days, our campus drama has become national news, and Mr. Murphy has become a conservative martyr. (Full disclosure: I ran for student body president against Mr. Murphy earlier this year and lost.)</p>
+
+<p>For many of his supporters, this is simply another story of campus leftists gone berserk and threatening free speech. In fact, it's a much more complicated story, one that throws into question the use of public funds for partisan ends.</p>
+
+<p>Michael Murphy has posted photos of himself on social media at President Trump's inauguration and with Education Secretary Betsy DeVos in the White House. He is the son of Dan Murphy, who works for the lobbying firm BGR Group. Dan Murphy maxed out donations to President Trump's 2020 campaign, and is a known associate of Donald Trump Jr. The $50,000 that paid for the speaking fee came from mandatory student fees.</p>
+
+<p>In response to our impeachment inquiry, the student body president hired Daniel Nordby — the one-time general counsel of the former Florida governor and current senator Rick Scott — as his attorney. Mr. Scott called Mr. Murphy's pending impeachment "shameful." On Nov. 14 the Florida Republican Party publicized a page on its website where supporters can add their name to support Mr. Murphy (and, one click below that, "contribute to keep America great"). That same day, Donald Trump Jr. tweeted colorful language about the Murphy impeachment inquiry and added, "Enough of this nonsense."</p>
+
+<p>After the Oct. 10 event, a University of Florida alumna, Mariana Castro, submitted a public records request for all emails to and from Mr. Murphy concerning the invitation of the president's son to campus. Her request returned an email thread from Caroline Wren, a veteran Republican fund-raiser. Ms. Wren works as a financial consultant for the Trump Victory Committee, a joint entity between the Trump 2020 re-election campaign and the Republican National Committee.</p>
+
+<p>On Sept. 11, Ms. Wren sent an email to Mr. Murphy referring to a Fourth of July meeting with him at her house. She added that she "would like to bring Donald Trump Jr., Kimberly Guilfoyle and R.N.C. co-chairman Tommy Hicks to the University of Florida."</p>
+
+<p>When our local paper, The Independent Florida Alligator, called Ms. Wren for comment on Oct. 30, she first stated that she didn't know who Mr. Murphy was — which for sure doesn't raise any eyebrows at all. Ms. Wren later responded via email to The Alligator, acknowledging that she and Mr. Murphy met over the summer. She insisted she had been acting in her personal capacity and that she "mistakenly forgot to remove my Trump Victory signature."</p>
+
+<p>Many people saw these emails as the smoking gun, as proof that Mr. Murphy had colluded with the Trump campaign to funnel student fees toward a partisan cause.</p>
+
+<p>The emails were the final straw for me and my colleagues in the Student Government Senate.</p>
+
+<p>On Nov. 12, we filed an impeachment resolution against our student body president for using student fees to advance his own expressed political beliefs and for violating our governing laws (specifically 808.12, Part 5) that forbid student government funds from being used to support a political party.</p>
+
+<p>And that was supposed to be it. Naturally, The Alligator reported on it. Then the Tampa Bay Times. The story continued to gather momentum, bolstered by the striking similarity to what is going on at the federal level.</p>
+
+<p>Conservative commentators have glanced in our direction and bemoaned the death of free speech on college campuses. The Florida Federation of College Republicans lamented that our student government has used "funds for years to promote liberal speakers."</p>
+
+<p>Reality doesn't quite match up with the assertions of those who claim to be persecuted; as I've written previously, the vast majority of the political speakers that our student government has brought in and paid for in the last three years are conservative. On the conservative side, the former Ohio governor John Kasich came to campus in January; the former Republican presidential candidate Carly Fiorina and political commentator Ben Shapiro spoke in 2017. On the liberal side, we held events with Kal Penn, associate director in the White House Office of Public Engagement in the Obama administration, and the comedian Chelsea Handler in 2017.</p>
+
+<p>For the record, we do not try to impeach our student body president after every conservative speaking event on campus. Since the University of Florida opened its doors in Gainesville in 1906, there has been only one other impeachment inquiry into a student body president; in 2009, Kevin Reilly was investigated over various concerns, including violations of the Florida Sunshine Law and conspiring to keep minority-party senators out of committee seats. He was ultimately not impeached and, interestingly enough, eventually went on to work in Governor Scott's administration.</p>
+
+<p>The Florida Republican Party seems to think that the impeachment inquiry is solely about inviting a member of the Trump family to campus, but that is not the case. My fellow senators and I have no qualms with free speech. This is an issue of conflicts of interest and fiscal responsibility, revolving around how $50,000 in mandatory student fees ended up going down the drain, in the direction of the swamp.</p>
+
+<p>The Trump event at the University of Florida wasn't "free speech" but instead a "$50,000 speech." Many have framed the event as a great bargain, citing how much more money we've spent on other speakers, like Pitbull or Aly Raisman. I wasn't convinced. I consider Donald Trump Jr. to be a barren banana stand in the marketplace of ideas. No one would ever mistake him for an intellectual or accomplished individual, so why pay him even close to such?</p>
+
+<p>Less than two weeks after his appearance at the University of Florida, the junior Mr. Trump spoke at Grand Canyon University and Colorado State University. Last week, he was booed (by the far right) at the University of California, Los Angeles.</p>
+
+<p>None of these universities paid speaking fees or used student fees (though at least one, Grand Canyon University, did supply the space and pay for security); these events were organized through and paid for by the conservative group Turning Point USA, a group that also claims to have influenced student government elections all over the country, including at the University of Florida.</p>
+
+<p>To sidestep our allegations, Mr. Murphy's attorney has insisted that the president's son was brought to campus to promote his book, "Triggered: How the Left Thrives on Hate and Wants to Silence Us," — so that it wasn't a campaign event. (The book was published on Nov. 5, 26 days after his speech.)</p>
+
+<p>If that was the case, then shouldn't the event have been free? It's not a stretch to imagine that he is already making money off his book, a No. 1 best seller, boosted by bulk purchases from the Republican National Committee.</p>
+
+<p>We didn't see $50,000 flowing to him at his other book tour stops, so why did it happen at the University of Florida?</p>
+
+<p>Paying $50,000 for a speech that could have literally been a free speech is ethically questionable, especially seeing how Ms. Wren, a financial consultant for the Trump re-election campaign, was involved in setting up the speaking event — and that Michael Murphy's lobbyist father has already maxed out his contributions to the campaign.</p>
+
+<p>At the end of the day, had Donald Trump Jr. come to the University of Florida in the same way that he visited other universities, we would not had initiated impeachment proceedings against our student body president. It is the money questionably spent, conflicts of interest and shady Trump campaign collusion that are the sole ingredients in this recipe for impeachment.</p>
+
+<p>Just as they are doing with the hearings in Washington, Republicans will try to pass this off as another day of partisan politics, but it's not. This is about right and wrong, and just like our counterparts in Congress, we are taking a stand for ethical behavior in politics. We demand accountability.</p>
+
+<p><em>Zachariah Chou (@ZachariahChou) is a student government senator at the University of Florida.</em></p>`
             }
         };
+
+        // Op-Eds sorting and rendering
+        let currentSort = 'default';
+        const defaultOrder = ['hernandez', 'camp', 'scruby', 'mitchell', 'jack', 'hack', 'downes', 'mintz', 'meisels', 'marquez', 'okafor', 'larkins', 'egan', 'chou'];
+
+        function renderOpEds(sortedIds) {
+            const opedsList = document.getElementById('opedsList');
+            opedsList.innerHTML = '';
+            
+            sortedIds.forEach(id => {
+                const oped = opedArticles[id];
+                if (!oped) return;
+                
+                const opedItem = document.createElement('div');
+                opedItem.className = 'oped-item';
+                opedItem.onclick = () => openOpEd(id);
+                opedItem.innerHTML = `
+                    <div class="oped-item-title">${oped.title}</div>
+                    <div class="oped-item-meta">
+                        <strong>Author:</strong> ${oped.author}<br>
+                        <strong>Publication:</strong> ${oped.publication}<br>
+                        <strong>Date:</strong> ${oped.date}
+                    </div>
+                `;
+                opedsList.appendChild(opedItem);
+            });
+        }
+
+        function parseDate(dateString) {
+            return new Date(dateString);
+        }
+
+        function sortOpEds(sortBy) {
+            currentSort = sortBy;
+            
+            // Update button states
+            document.querySelectorAll('.sort-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            let sortedIds = [...defaultOrder];
+            
+            if (sortBy === 'title') {
+                sortedIds.sort((a, b) => {
+                    const titleA = opedArticles[a].title.toLowerCase();
+                    const titleB = opedArticles[b].title.toLowerCase();
+                    return titleA.localeCompare(titleB);
+                });
+            } else if (sortBy === 'author') {
+                sortedIds.sort((a, b) => {
+                    const authorA = opedArticles[a].author.toLowerCase();
+                    const authorB = opedArticles[b].author.toLowerCase();
+                    return authorA.localeCompare(authorB);
+                });
+            } else if (sortBy === 'date') {
+                sortedIds.sort((a, b) => {
+                    const dateA = parseDate(opedArticles[a].date);
+                    const dateB = parseDate(opedArticles[b].date);
+                    return dateB - dateA; // Most recent first
+                });
+            }
+            // 'default' keeps the original order
+            
+            renderOpEds(sortedIds);
+        }
 
         // Open reader modal with specific op-ed
         function openOpEd(opedId) {
@@ -2295,6 +2516,7 @@
         }
 
         initializeGame();
+        renderOpEds(defaultOrder); // Render op-eds list on page load
     </script>
 </body>
 </html>
